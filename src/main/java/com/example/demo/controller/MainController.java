@@ -17,6 +17,7 @@ import java.util.Date;
 @Controller
 public class MainController {
     private int count = 0;
+    private int count1 = 0;
 
     @GetMapping("/main")
     public String mainController(ModelMap mp){
@@ -31,6 +32,25 @@ public class MainController {
 
 
         return "main";
+    }
+    @GetMapping("/wordchange") // Get request
+    public String setWord(ModelMap mp) {
+        String Alec;
+        count1++;
+        if(count1%2 == 0){
+            Alec = "Back";
+            mp.addAttribute("Word", Alec);
+        }
+        else{
+            Alec = "Forth";
+            mp.addAttribute("Word", Alec);
+        }
+        return "Alec";
+    }
+
+    @GetMapping("/Alec")
+    public String Alec(){
+        return "Alec"; // Error 500
     }
 
 
