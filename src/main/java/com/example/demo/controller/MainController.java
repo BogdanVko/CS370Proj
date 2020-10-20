@@ -1,30 +1,60 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.Teacher;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import java.util.Date;
+import java.util.ArrayList;
 
-
-///Tasks
-@Controller
+@RestController
 public class MainController {
 
     private int count = 0;
-    private int count1 = 0;
+    private ArrayList<Teacher> list = new ArrayList<>();
+
+    @PutMapping("/teachers")
+    public ArrayList<Teacher> changeTeacher(@RequestBody Teacher teacher) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId() == teacher.getId()) {
+                list.set(i, teacher);
+            }
+
+        }
+        return list;
+    }
+
+    @DeleteMapping("/teachers")
+    public ArrayList<Teacher> deleteTeacher(@RequestParam Integer id) {
+
+        list.removeIf(teacher -> teacher.getId() == id);
+
+        return list;
+    }
+
+    @PostMapping("/teachers")
+    public ArrayList<Teacher> addTeacher(@RequestBody Teacher teacher) {
+
+        teacher.setId(++count);
+        list.add(teacher);
+
+        return list;
+    }
+
+    @GetMapping("/teacher")
+    public Teacher getTeacher(@RequestParam Integer id) {
+        for (Teacher teacher : list) {
+            if (teacher.getId() == id) {
+                return teacher;
+            }
+        }
+
+        return null;
+    }
+
+    @GetMapping("/teachers")
+    public ArrayList<Teacher> getAllTeachers() {
 
 
-
-
-    @GetMapping("/")
-    public String getIndex(){
-        return "index";
+        return list;
     }
 
 
