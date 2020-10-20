@@ -1,12 +1,34 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
 </head>
 <body>
+
+<script>
+
+
+    function getTeachers() {
+        fetch("/teachers",
+            {method: 'GET',   credentials: 'same-origin'}
+        )
+            .then(function (response) {
+                alert(response.json());
+                return response.json();
+            });
+
+    }
+    function foo()
+    {
+        //this function needs to do 2 things
+        //Take shit from backend
+        alert("Oleg is krisa");
+    }
+
+</script>
 <style>
-    .tutor{
+    .tutor {
         width: 100px;
         height: 100px;
         margin-bottom: 10px;
@@ -27,8 +49,9 @@
 </div>
 <div class="tutor">Tutor 2</div>
 <div class="tutor">Tutor 3</div>
-
-
+<button onclick="getTeachers()">
+Get all teachers
+</button>
 
 
 </body>

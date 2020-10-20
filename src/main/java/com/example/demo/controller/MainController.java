@@ -8,8 +8,11 @@ import java.util.ArrayList;
 @RestController
 public class MainController {
 
-    private int count = 0;
+    private int count = 1;
     private ArrayList<Teacher> list = new ArrayList<>();
+    {
+        list.add(new Teacher("vk.com", "Bogdan", count++));
+    }
 
     @PutMapping("/teachers")
     public ArrayList<Teacher> changeTeacher(@RequestBody Teacher teacher) {
