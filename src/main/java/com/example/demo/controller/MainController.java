@@ -7,17 +7,20 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import java.util.Date;
 
+
+///Tasks
 @Controller
 public class MainController {
+<<<<<<< Updated upstream
     private int count = 0;
     private int count1 = 0;
+=======
+    private int count = 10;
+>>>>>>> Stashed changes
 
     @GetMapping("/main")
     public String mainController(ModelMap mp){
@@ -25,9 +28,11 @@ public class MainController {
         return "main"; // Error 500
     }
 
+
+
     @GetMapping("/alek") // Get request
     public String setTest(ModelMap mp) {
-        count++;
+        count+=10;
         mp.addAttribute("test", count);
 
 
