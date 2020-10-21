@@ -21,16 +21,15 @@
             //     from 0 we can get name
             .then(response => response.json())
             .then((data) => {
-                    // alert(data["0"].name); this works
-                let nameList = "";
-                for (let i = 0; i < data.length; i++) {
-                    console.log(data.length);
-                    const obj = data[i];
-                    console.log(obj);
-                    let name = obj.name;
+                    let nameList = "";
+                    for (let i = 0; i < data.length; i++) {
+                        console.log(data.length);  //Attention: if you go to dev tools in browser and then to console, you will get whatever
+                                                  // is in console.log()
+                        const obj = data[i];
+                        console.log(obj);
+                        let name = obj.name;
                         nameList +=
-                                "<h4>Name: " + name;
-
+                            "<h4>Name: " + name;
 
 
                     }
@@ -76,7 +75,6 @@
     <h1>Tutor names. Get request</h1>
     <p>This is the text a list of all tutors in the list</p>
 </div>
-
 
 
 </body>
