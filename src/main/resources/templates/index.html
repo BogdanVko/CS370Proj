@@ -24,7 +24,7 @@
                     let nameList = "";
                     for (let i = 0; i < data.length; i++) {
                         console.log(data.length);  //Attention: if you go to dev tools in browser and then to console, you will get whatever
-                                                  // is in console.log()
+                        // is in console.log()
                         const obj = data[i];
                         console.log(obj);
                         let name = obj.name;
@@ -41,14 +41,28 @@
     }
 
 
-    function foo() {
-        //this function needs to do 2 things
-        //Take shit from backend
-        alert("Oleg is krisa");
+    function switchOnline() {
+
+        document.getElementById("isOnline").style.backgroundColor = "green";
+
+    }
+
+    function switchOffline() {
+
+        document.getElementById("isOnline").style.backgroundColor = "red";
+
     }
 
 </script>
 <style>
+    #isOnline {
+        border-radius: 100%;
+        border: 1px solid black;
+        background-color: red;
+        height: 50px;
+        width: 50px;
+    }
+
     .tutor {
         width: 100px;
         height: 100px;
@@ -75,7 +89,19 @@
     <h1>Tutor names. Get request</h1>
     <p>This is the text a list of all tutors in the list</p>
 </div>
+<script>
 
+</script>
+<div id="isOnline">
+
+</div>
+<button onclick="switchOnline()">
+    <p>Toggle online</p>
+</button>
+
+<button onclick="switchOffline()">
+    <p>Toggle offline</p>
+</button>
 
 </body>
 </html>
