@@ -22,7 +22,20 @@
             .then(response => response.json())
             .then((data) => {
                     // alert(data["0"].name); this works
-                    document.getElementById("outName").innerHTML = data["0"].name;
+                let nameList = "";
+                for (let i = 0; i < data.length; i++) {
+                    console.log(data.length);
+                    const obj = data[i];
+                    console.log(obj);
+                    let name = obj.name;
+                        nameList +=
+                                "<h4>Name: " + name;
+
+
+
+                    }
+                    document.getElementById("add_to_me").innerHTML +=
+                        nameList;
 
                 }
             );
@@ -59,11 +72,12 @@
 <div class="tutor">Tutor 2</div>
 <div class="tutor">Tutor 3</div>
 <input onclick="getTeachers()" type="button" value="Button" id="myButton1"/>
+<div id="add_to_me">
+    <h1>Tutor names. Get request</h1>
+    <p>This is the text a list of all tutors in the list</p>
+</div>
 
 
-<h1 id="outName">Hello</h1>
-<script>
-    document.getElementById("firstName").innerHTML = fName;
-</script>
+
 </body>
 </html>

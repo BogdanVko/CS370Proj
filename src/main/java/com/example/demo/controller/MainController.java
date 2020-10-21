@@ -12,6 +12,8 @@ public class MainController {
     private ArrayList<Teacher> list = new ArrayList<>();
     {
         list.add(new Teacher("vk.com", "Bogdan", count++));
+        list.add(new Teacher("facebook.com", "Alec", count++));
+        list.add(new Teacher("myspace.org", "Tor", count++));
     }
 
     @PutMapping("/teachers")
@@ -56,7 +58,7 @@ public class MainController {
     @GetMapping("/teachers")
     public ArrayList<Teacher> getAllTeachers() {
         System.out.println("Get request called. Accessed array " + list.toString());
-
+        System.out.println(Thread.currentThread().getName());
         return list;
     }
 
