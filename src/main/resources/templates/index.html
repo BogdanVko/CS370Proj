@@ -13,12 +13,16 @@
         fetch("/teachers",
             {method: 'GET',   credentials: 'same-origin'}
         )
-            .then(function (response) {
-                alert(response.json());
-                return response.json();
-            });
 
-    }
+        //     [{id: 1, link: "vk.com", name: "Bogdan"}]   This is out array element. BUT the whole array looks like this:
+        // 0: {id: 1, link: "vk.com", name: "Bogdan"}
+        //     so 0 is the first element
+        //     from 0 we can fetch name
+            .then(response => response.json())
+            .then(data => alert(data["0"].name));
+            }
+
+
     function foo()
     {
         //this function needs to do 2 things
