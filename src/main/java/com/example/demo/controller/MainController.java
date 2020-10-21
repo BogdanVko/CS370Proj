@@ -55,7 +55,7 @@ public class MainController {
 
     @GetMapping("/teachers")
     public ArrayList<Teacher> getAllTeachers() {
-
+        System.out.println("Get request called. Accessed array " + list.toString());
 
         return list;
     }

@@ -8,23 +8,28 @@
 
 <script>
 
+
     // Press F12 in chrome, go to network and press the button. This works!
     function getTeachers() {
         fetch("/teachers",
-            {method: 'GET',   credentials: 'same-origin'}
+            {method: 'GET', credentials: 'same-origin'}
         )
 
-        //     [{id: 1, link: "vk.com", name: "Bogdan"}]   This is out array element. BUT the whole array looks like this:
-        // 0: {id: 1, link: "vk.com", name: "Bogdan"}
-        //     so 0 is the first element
-        //     from 0 we can fetch name
+            //     [{id: 1, link: "vk.com", name: "Bogdan"}]   This is out array element. BUT the whole array looks like this:
+            //     0: {id: 1, link: "vk.com", name: "Bogdan"}
+            //     so 0 is the first element. First we get 0, then
+            //     from 0 we can get name
             .then(response => response.json())
-            .then(data => alert(data["0"].name));
-            }
+            .then((data) => {
+                    // alert(data["0"].name); this works
+                    document.getElementById("outName").innerHTML = data["0"].name;
+
+                }
+            );
+    }
 
 
-    function foo()
-    {
+    function foo() {
         //this function needs to do 2 things
         //Take shit from backend
         alert("Oleg is krisa");
@@ -53,10 +58,12 @@
 </div>
 <div class="tutor">Tutor 2</div>
 <div class="tutor">Tutor 3</div>
-<button onclick="getTeachers()">
-Get all teachers
-</button>
+<input onclick="getTeachers()" type="button" value="Button" id="myButton1"/>
 
 
+<h1 id="outName">Hello</h1>
+<script>
+    document.getElementById("firstName").innerHTML = fName;
+</script>
 </body>
 </html>
