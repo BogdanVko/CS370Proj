@@ -14,10 +14,8 @@
             link: "gg.com",
             name: "Anita"
         };
-        console.log("teacher var is " + teacher.name);
-        var data = new FormData();
-        data.append("json", JSON.stringify(teacher));
-        console.log("data is " + data);
+
+
         console.log("JSON St-y " + JSON.stringify(teacher));
         fetch("/teachers",
             {
@@ -29,7 +27,7 @@
             }
         )
         .then(function(res){ return res.json(); })
-        .then(function(data) {
+        .then(function(teacher) {
             alert(JSON.stringify(teacher))
         })
     }
