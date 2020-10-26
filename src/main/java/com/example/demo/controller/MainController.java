@@ -37,7 +37,7 @@ public class MainController {
 
     @PostMapping("/teachers")
     public ArrayList<Teacher> addTeacher(@RequestBody Teacher teacher) {
-
+        System.out.println("Added 1 tutor to the list. Total amount now is " + count);
         teacher.setId(++count);
         list.add(teacher);
 
