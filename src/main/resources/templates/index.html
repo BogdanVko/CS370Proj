@@ -14,16 +14,23 @@
             link: "gg.com",
             name: "Anita"
         };
-
+        console.log("teacher var is " + teacher.name);
         var data = new FormData();
         data.append("json", JSON.stringify(teacher));
-
+        console.log("data is " + data);
+        console.log("JSON St-y " + JSON.stringify(teacher));
         fetch("/teachers",
-            {method: 'POST', credentials: 'same-origin', body: data}
+            {
+                method: 'POST',
+                credentials: 'same-origin',
+                body: JSON.stringify(teacher),
+                mode: "cors",
+                headers: {"Content-type": "application/json;charset=utf-8"}
+            }
         )
         .then(function(res){ return res.json(); })
         .then(function(data) {
-            alert(JSON.stringify(data))
+            alert(JSON.stringify(teacher))
         })
     }
 
