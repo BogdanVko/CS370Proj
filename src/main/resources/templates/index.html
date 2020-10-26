@@ -8,6 +8,24 @@
 
 <script>
 
+    //doesn't quite work
+    function addTeacher(){
+        var teacher = {
+            link: "gg.com",
+            name: "Anita"
+        };
+
+        var data = new FormData();
+        data.append("json", JSON.stringify(teacher));
+
+        fetch("/teachers",
+            {method: 'POST', credentials: 'same-origin', body: data}
+        )
+        .then(function(res){ return res.json(); })
+        .then(function(data) {
+            alert(JSON.stringify(data))
+        })
+    }
 
     // Press F12 in chrome, go to network and press the button. This works!
     function getTeachers() {
@@ -99,8 +117,15 @@
     <p>Toggle online</p>
 </button>
 
+
 <button onclick="switchOffline()">
-    <p>Toggle offline</p>
+<p>Toggle offline</p>
+</button>
+
+
+
+<button onclick="addTeacher()">
+    <p>Add tutor</p>
 </button>
 
 </body>
