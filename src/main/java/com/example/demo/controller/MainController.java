@@ -28,9 +28,14 @@ public class MainController {
     }
 
     @DeleteMapping("/teachers")
-    public ArrayList<Teacher> deleteTeacher(@RequestParam Integer id) {
-
-        list.removeIf(teacher -> teacher.getId() == id);
+    public ArrayList<Teacher> deleteTeacher(@RequestParam Teacher teacher) {
+        for(int i = 0; i < list.size(); i++){
+            if(list.get(i).getName().equals(teacher.getName()) ){
+                list.remove(i);
+                System.out.println(teacher.getName() + "was removed.");
+                break;
+            }
+        }
 
         return list;
     }
