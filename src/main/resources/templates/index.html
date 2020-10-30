@@ -9,10 +9,10 @@
 <script>
 
     //doesn't quite work
-    function addTeacher(){
+    function addTeacher(nametext){
         var teacher = {
             link: "gg.com",
-            name: "Anita"
+            name: nametext
         };
 
 
@@ -107,6 +107,12 @@
 </div>
 <div class="tutor">Tutor 2</div>
 <div class="tutor">Tutor 3</div>
+<label>Add tutor</label>
+<input textbox= "addTeacher" id = "myText" value = "Add tutor name here test" />
+<input onclick="addTeacher(document.getElementById('myText').value)" type="button" value="Button" id="myButton2"/>
+<br>
+
+<br>
 <input onclick="getTeachers()" type="button" value="Button" id="myButton1"/>
 <div id="add_to_me">
     <h1>Tutor names. Get request</h1>
