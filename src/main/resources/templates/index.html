@@ -64,27 +64,25 @@
             );
     }
 
-    function deleteTeacher(nametext) {
-        var teacher = {
-            link: "gg.com",
-            name: nametext
-        };
+    function deleteTeacher() {
 
 
-        console.log("JSON St-y " + JSON.stringify(teacher));
-        fetch("/teachers",
+
+
+        fetch("/teachers?id=1",
             {
-                method: 'DELETE',
+                method: 'delete',
                 credentials: 'same-origin',
-                body: JSON.stringify(teacher),
-                mode: "cors",
-                headers: {"Content-type": "application/json;charset=utf-8"}
+                // body: JSON.stringify(teacher),
+                // mode: "cors",
+                // headers: {"Content-type": "application/json;charset=utf-8"}
             }
         )
-        .then(function(res){ return res.json(); })
-        .then(function(teacher) {
-            alert(JSON.stringify(teacher))
-        })
+            .then(response =>
+                response.json().then(json => {
+                    return json;
+                })
+            );
     }
 
     function switchOnline() {
@@ -131,12 +129,18 @@
 <div class="tutor">Tutor 2</div>
 <div class="tutor">Tutor 3</div>
 <label>Add tutor</label>
+
+<button onclick="deleteTeacher()">
+    <p>DELETE TRY</p>
+</button>
+
+
 <input textbox= "addTeacher" id = "myText"/>
 <input onclick="addTeacher(document.getElementById('myText').value)" type="button" value="Button" id="myButton2"/>
 <br>
 <label>Delete tutor</label>
-<input textbox= "deleteTeacher" id = "myText"/>
-<input onclick="deleteTeacher(document.getElementById('myText').value)" type="button" value="Button" id="myButton3"/>
+<input textbox= "deleteTeacher" id = "delText"/>
+<input onclick="deleteTeacher(document.getElementById('delText').value)" type="button" value="Button" id="myButton3"/>
 <br>
 <br>
 <input onclick="getTeachers()" type="button" value="Button" id="myButton1"/>
