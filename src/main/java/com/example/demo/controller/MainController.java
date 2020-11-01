@@ -17,13 +17,15 @@ public class MainController {
     }
 
     @PutMapping("/teachers")
-    public ArrayList<Teacher> changeTeacher(@RequestBody Teacher teacher) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId() == teacher.getId()) {
-                list.set(i, teacher);
+    public ArrayList<Teacher> deleteTeacher(@RequestParam Integer id) {
+        for(int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId() == id) {
+                list.remove(i);
+                System.out.println(list.get(i).getName() + "was removed.");
             }
-
         }
+
+
         return list;
     }
 
