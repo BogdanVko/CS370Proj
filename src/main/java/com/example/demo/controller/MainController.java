@@ -59,8 +59,10 @@ public class MainController {
 
     @GetMapping("/teacher")
     public Teacher getTeacher(@RequestParam Integer id) {
+        System.out.print("Get single tutor called ");
         for (Teacher teacher : list) {
             if (teacher.getId() == id) {
+                System.out.println(teacher.getName() + " was found.");
                 return teacher;
             }
         }
