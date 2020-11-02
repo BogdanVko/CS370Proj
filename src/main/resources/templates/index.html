@@ -64,12 +64,10 @@
             );
     }
 
-    function deleteTeacher() {
+    function deleteTeacher(inputID) {
+        var test = parseInt(inputID);
 
-
-
-
-        fetch("/teachers?id=1",
+        fetch(`/teachers?id=${test}`,
             {
                 method: 'delete',
                 credentials: 'same-origin',
@@ -129,11 +127,6 @@
 <div class="tutor">Tutor 2</div>
 <div class="tutor">Tutor 3</div>
 <label>Add tutor</label>
-
-<button onclick="deleteTeacher()">
-    <p>DELETE TRY</p>
-</button>
-
 
 <input textbox= "addTeacher" id = "myText"/>
 <input onclick="addTeacher(document.getElementById('myText').value)" type="button" value="Button" id="myButton2"/>

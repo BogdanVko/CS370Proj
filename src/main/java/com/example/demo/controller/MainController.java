@@ -36,8 +36,9 @@ public class MainController {
         for(int i = 0; i < list.size(); i++) {
             if (list.get(i).getId() == id) {
                 isFound = true;
-                list.remove(i);
                 System.out.println(list.get(i).getName() + " was removed.");
+                list.remove(i);
+                
             }
         }
         if(!isFound){
