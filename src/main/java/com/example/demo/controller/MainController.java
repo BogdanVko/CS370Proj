@@ -30,16 +30,19 @@ public class MainController {
     @DeleteMapping("/teachers")
     public ArrayList<Teacher> deleteTeacher(@RequestParam Integer id) {
         System.out.print("Delete called ");
-
+        Boolean isFound = false;
 
 
         for(int i = 0; i < list.size(); i++) {
             if (list.get(i).getId() == id) {
+                isFound = true;
                 list.remove(i);
                 System.out.println(list.get(i).getName() + " was removed.");
             }
         }
-
+        if(!isFound){
+            System.out.println("That ID doesn't exist! Tutor not found, aborting.");
+        }
 
         return list;
     }

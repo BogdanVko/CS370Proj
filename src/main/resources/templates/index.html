@@ -16,7 +16,7 @@
         };
 
 
-        console.log("JSON St-y " + JSON.stringify(teacher));
+        console.log("addTeacher(): JSON St-y " + JSON.stringify(teacher));
         fetch("/teachers",
             {
                 method: 'POST',
@@ -47,10 +47,10 @@
             .then((data) => {
                     let nameList = "";
                     for (let i = 0; i < data.length; i++) {
-                        console.log(data.length);  //Attention: if you go to dev tools in browser and then to console, you will get whatever
+                        console.log("getTeacherS(): length of data" + data.length);  //Attention: if you go to dev tools in browser and then to console, you will get whatever
                         // is in console.log()
                         const obj = data[i];
-                        console.log(obj);
+                        console.log("getTeacherS(): obj added " + obj);
                         let name = obj.name;
                         nameList +=
                             "<h4>Name: " + name;
