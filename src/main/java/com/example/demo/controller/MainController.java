@@ -10,6 +10,7 @@ import java.util.Scanner;  //For splitting input
 @RestController
 public class MainController {
 
+
     private int count = 1;
     private ArrayList<Teacher> list = new ArrayList<>();
     {
