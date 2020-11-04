@@ -1,0 +1,16 @@
+Our RESTful webserver is a website that utilizes Java framework Spring Boot, raw HTML
+CSS and JS. We use JSON to pass data from back-end to front end. The server works on port 8080,localhost:8080 is the address. 
+The website (in its not complete state for now) does process GET, POST, PUT and DELETE requests by actuallly changing DOM of the webpage and sout-ing information 
+to standard output. 
+Our project can be run with a command that simply runs jar:
+
+$ java -jar *.jar while being in the /target directory.
+
+We also have implemented a docker container.
+To run the docker container please use command:
+
+$docker run -p 8080:8080 springio/gs-spring-boot-docker
+
+
+Whichever way you choose to run the web server, go to localhost:8080 and you will notice a website that sends and recieves HTTP requests.
+
