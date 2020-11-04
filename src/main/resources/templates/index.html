@@ -1,12 +1,138 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
 </head>
 <body>
+
+<script>
+    function addTeacher(nametext){
+        var teacher = {
+            link: "gg.com",
+            name: nametext
+        };
+
+
+        console.log("addTeacher(): JSON St-y " + JSON.stringify(teacher));
+        fetch("/teachers",
+            {
+                method: 'POST',
+                credentials: 'same-origin',
+                body: JSON.stringify(teacher),
+                mode: "cors",
+                headers: {"Content-type": "application/json;charset=utf-8"}
+            }
+        )
+        .then(function(res){ return res.json(); })
+        .then(function(teacher) {
+            alert(JSON.stringify(teacher))
+        })
+    }
+
+    // Press F12 in chrome, go to network and press the button. This works!
+    function getTeachers() {
+        fetch("/teachers",
+            {method: 'GET', credentials: 'same-origin'}
+        )
+
+            //     [{id: 1, link: "vk.com", name: "Bogdan"}]   This is out array element. BUT the whole array looks like this:
+            //     0: {id: 1, link: "vk.com", name: "Bogdan"}
+            //     so 0 is the first element. First we get 0, then
+            //     from 0 we can get name
+            //function foo(data) {}  - >> (arg) =>
+            .then(response => response.json())
+            .then((data) => {
+                    let nameList = "";
+                    for (let i = 0; i < data.length; i++) {
+                        console.log("getTeacherS(): length of data" + data.length);  //Attention: if you go to dev tools in browser and then to console, you will get whatever
+                        // is in console.log()
+                        const obj = data[i];
+                        console.log("getTeacherS(): obj added " + obj);
+                        let name = obj.name;
+                        nameList +=
+                            "<h4>Name: " + name;
+
+
+                    }
+                    document.getElementById("add_to_me").innerHTML +=
+                        nameList;
+
+                }
+            );
+    }
+
+    function getTeacher(inputID) {
+        var test = parseInt(inputID);
+        fetch(`/teacher?id=${test}`,
+            {method: 'GET', credentials: 'same-origin'}
+        )
+
+            //     [{id: 1, link: "vk.com", name: "Bogdan"}]   This is out array element. BUT the whole array looks like this:
+            //     0: {id: 1, link: "vk.com", name: "Bogdan"}
+            //     so 0 is the first element. First we get 0, then
+            //     from 0 we can get name
+            //function foo(data) {}  - >> (arg) =>
+            .then(response => response.json())
+            .then((data) => {
+                    let nameList = "";
+                        console.log("getTeacherS(): length of data" + data.length);  //Attention: if you go to dev tools in browser and then to console, you will get whatever
+                        // is in console.log()
+                        const obj = data;
+                        console.log("getTeacherS(): obj added " + obj);
+                        let name = obj.name;
+                        nameList +=
+                            "<h4>Name: " + name;
+
+                    document.getElementById("add_to_me").innerHTML +=
+                        nameList;
+
+                }
+            );
+    }
+
+    function deleteTeacher(inputID) {
+        var test = parseInt(inputID);
+
+        fetch(`/teachers?id=${test}`,
+            {
+                method: 'delete',
+                credentials: 'same-origin',
+                // body: JSON.stringify(teacher),
+                // mode: "cors",
+                // headers: {"Content-type": "application/json;charset=utf-8"}
+            }
+        )
+            .then(response =>
+                response.json().then(json => {
+                    return json;
+                })
+            );
+    }
+
+    function switchOnline() {
+
+        document.getElementById("isOnline").style.backgroundColor = "green";
+
+    }
+
+    function switchOffline() {
+
+        document.getElementById("isOnline").style.backgroundColor = "red";
+
+    }
+
+</script>
 <style>
-    .tutor{
+    #isOnline {
+        border-radius: 100%;
+        border: 1px solid black;
+        background-color: red;
+        height: 50px;
+        width: 50px;
+    }
+
+    .tutor {
         width: 100px;
         height: 100px;
         margin-bottom: 10px;
@@ -27,9 +153,45 @@
 </div>
 <div class="tutor">Tutor 2</div>
 <div class="tutor">Tutor 3</div>
+<label>Add tutor</label>
+
+<input textbox= "addTeacher" id = "myText"/>
+<input onclick="addTeacher(document.getElementById('myText').value)" type="button" value="Button" id="myButton2"/>
+<br>
+<label>Delete tutor</label>
+<input textbox= "deleteTeacher" id = "delText"/>
+<input onclick="deleteTeacher(document.getElementById('delText').value)" type="button" value="Button" id="myButton3"/>
+<br>
+<label>Get tutor</label>
+<input textbox= "getTeacher" id = "getText"/>
+<input onclick="getTeacher(document.getElementById('getText').value)" type="button" value="Button" id="getTeacher"/>
+<br>
+<br>
+<input onclick="getTeachers()" type="button" value="Button" id="myButton1"/>
+<div id="add_to_me">
+    <h1>Tutor names. Get request</h1>
+    <p>This is the text a list of all tutors in the list</p>
+</div>
+<script>
+
+</script>
+<div id="isOnline">
+
+</div>
+<button onclick="switchOnline()">
+    <p>Toggle online</p>
+</button>
+
+
+<button onclick="switchOffline()">
+<p>Toggle offline</p>
+</button>
 
 
 
+<button onclick="addTeacher()">
+    <p>Add tutor</p>
+</button>
 
 </body>
 </html>

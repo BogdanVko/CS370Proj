@@ -1,21 +1,77 @@
+
 package com.example.demo.controller;
 
 import com.example.demo.dto.Teacher;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;  //For splitting input
 
 @RestController
 public class MainController {
 
-    private int count = 0;
+    private int count = 1;
     private ArrayList<Teacher> list = new ArrayList<>();
+    {
+        list.add(new Teacher("vk.com", "Bogdan", count++));
+        list.add(new Teacher("facebook.com", "Alec", count++));
+        list.add(new Teacher("myspace.org", "Tor", count++));
+    }
 
     @PutMapping("/teachers")
-    public ArrayList<Teacher> changeTeacher(@RequestBody Teacher teacher) {
+    public ArrayList<Teacher> changeName(@RequestBody String names) {
+
+        names = names.substring(1, names.length() - 1);
+        Scanner sc = new Scanner(names);
+        String oldName = null;
+        String newName = null;
+
+
+        //First word set to old name
+        if(sc.hasNext())
+            oldName = sc.next();
+        if(sc.hasNext())
+            newName = sc.next();
+//    System.out.println(oldName);
+//    System.out.println(newName);
+//    System.out.println(names);
+
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId() == teacher.getId()) {
-                list.set(i, teacher);
+//        System.out.println("listname: " + list.get(i).getName() + oldName);
+
+            if (list.get(i).getName().equals(oldName)) {
+//            System.out.println("MADE IT");
+                list.get(i).setName(newName);
+            }
+
+        }
+        return list;
+    }
+
+
+    public ArrayList<Teacher> changeLink(@RequestBody String input) {
+
+        input = input.substring(1, input.length() - 1);
+        Scanner sc = new Scanner(input);
+        String name = null;
+        String newLink = null;
+
+
+        //First word set to old name
+        if(sc.hasNext())
+            name = sc.next();
+        if(sc.hasNext())
+            newLink = sc.next();
+//    System.out.println(oldName);
+//    System.out.println(newName);
+//    System.out.println(names);
+
+        for (int i = 0; i < list.size(); i++) {
+//        System.out.println("listname: " + list.get(i).getName() + oldName);
+
+            if (list.get(i).getName().equals(name)) {
+//            System.out.println("MADE IT");
+                list.get(i).setLink(newLink);
             }
 
         }
@@ -24,15 +80,28 @@ public class MainController {
 
     @DeleteMapping("/teachers")
     public ArrayList<Teacher> deleteTeacher(@RequestParam Integer id) {
+        System.out.print("Delete called ");
+        Boolean isFound = false;
 
-        list.removeIf(teacher -> teacher.getId() == id);
+
+        for(int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId() == id) {
+                isFound = true;
+                System.out.println(list.get(i).getName() + " was removed.");
+                list.remove(i);
+
+            }
+        }
+        if(!isFound){
+            System.out.println("That ID doesn't exist! Tutor not found, aborting.");
+        }
 
         return list;
     }
 
     @PostMapping("/teachers")
     public ArrayList<Teacher> addTeacher(@RequestBody Teacher teacher) {
-
+        System.out.println("Added 1 tutor to the list. Total amount now is " + count);
         teacher.setId(++count);
         list.add(teacher);
 
@@ -41,8 +110,10 @@ public class MainController {
 
     @GetMapping("/teacher")
     public Teacher getTeacher(@RequestParam Integer id) {
+        System.out.print("Get single tutor called ");
         for (Teacher teacher : list) {
             if (teacher.getId() == id) {
+                System.out.println(teacher.getName() + " was found.");
                 return teacher;
             }
         }
@@ -52,8 +123,8 @@ public class MainController {
 
     @GetMapping("/teachers")
     public ArrayList<Teacher> getAllTeachers() {
-
-
+        System.out.println("Get request called. Accessed array " + list.toString());
+        System.out.println(Thread.currentThread().getName());
         return list;
     }
 
