@@ -1,9 +1,11 @@
+
 package com.example.demo.controller;
 
 import com.example.demo.dto.Teacher;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;  //For splitting input
 
 @RestController
 public class MainController {
@@ -17,10 +19,59 @@ public class MainController {
     }
 
     @PutMapping("/teachers")
-    public ArrayList<Teacher> changeTeacher(@RequestBody Teacher teacher) {
+    public ArrayList<Teacher> changeName(@RequestBody String names) {
+
+        names = names.substring(1, names.length() - 1);
+        Scanner sc = new Scanner(names);
+        String oldName = null;
+        String newName = null;
+
+
+        //First word set to old name
+        if(sc.hasNext())
+            oldName = sc.next();
+        if(sc.hasNext())
+            newName = sc.next();
+//    System.out.println(oldName);
+//    System.out.println(newName);
+//    System.out.println(names);
+
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId() == teacher.getId()) {
-                list.set(i, teacher);
+//        System.out.println("listname: " + list.get(i).getName() + oldName);
+
+            if (list.get(i).getName().equals(oldName)) {
+//            System.out.println("MADE IT");
+                list.get(i).setName(newName);
+            }
+
+        }
+        return list;
+    }
+
+
+    public ArrayList<Teacher> changeLink(@RequestBody String input) {
+
+        input = input.substring(1, input.length() - 1);
+        Scanner sc = new Scanner(input);
+        String name = null;
+        String newLink = null;
+
+
+        //First word set to old name
+        if(sc.hasNext())
+            name = sc.next();
+        if(sc.hasNext())
+            newLink = sc.next();
+//    System.out.println(oldName);
+//    System.out.println(newName);
+//    System.out.println(names);
+
+        for (int i = 0; i < list.size(); i++) {
+//        System.out.println("listname: " + list.get(i).getName() + oldName);
+
+            if (list.get(i).getName().equals(name)) {
+//            System.out.println("MADE IT");
+                list.get(i).setLink(newLink);
             }
 
         }
@@ -38,7 +89,7 @@ public class MainController {
                 isFound = true;
                 System.out.println(list.get(i).getName() + " was removed.");
                 list.remove(i);
-                
+
             }
         }
         if(!isFound){
