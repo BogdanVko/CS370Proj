@@ -24,50 +24,11 @@
                 headers: {"Content-type": "application/json;charset=utf-8"}
             }
         )
-            .then(function(res){ return res.json(); })
-            .then(function(teacher) {
-                alert(JSON.stringify(teacher))
-            })
+        .then(function(res){ return res.json(); })
+        .then(function(teacher) {
+            alert(JSON.stringify(teacher))
+        })
     }
-
-
-
-    //Working
-    function changeName(names) {
-
-        fetch("/teachers?id=1",
-            {
-                method: 'put',
-                credentials: 'same-origin',
-                body: JSON.stringify(names),
-                mode: "cors",
-                headers: {"Content-type": "application/json;charset=utf-8"}
-            }
-        )
-            .then(function(res){ return res.json(); })
-            .then(function() {
-                alert(JSON.stringify(names))
-            })
-    }
-
-    //Working
-    function changeLink(input) {
-
-        fetch("/teachers?id=1",
-            {
-                method: 'put',
-                credentials: 'same-origin',
-                body: JSON.stringify(input),
-                mode: "cors",
-                headers: {"Content-type": "application/json;charset=utf-8"}
-            }
-        )
-            .then(function(res){ return res.json(); })
-            .then(function() {
-                alert(JSON.stringify(input))
-            })
-    }
-
 
     // Press F12 in chrome, go to network and press the button. This works!
     function getTeachers() {
@@ -115,13 +76,13 @@
             .then(response => response.json())
             .then((data) => {
                     let nameList = "";
-                    console.log("getTeacherS(): length of data" + data.length);  //Attention: if you go to dev tools in browser and then to console, you will get whatever
-                    // is in console.log()
-                    const obj = data;
-                    console.log("getTeacherS(): obj added " + obj);
-                    let name = obj.name;
-                    nameList +=
-                        "<h4>Name: " + name;
+                        console.log("getTeacherS(): length of data" + data.length);  //Attention: if you go to dev tools in browser and then to console, you will get whatever
+                        // is in console.log()
+                        const obj = data;
+                        console.log("getTeacherS(): obj added " + obj);
+                        let name = obj.name;
+                        nameList +=
+                            "<h4>Name: " + name;
 
                     document.getElementById("add_to_me").innerHTML +=
                         nameList;
@@ -205,17 +166,6 @@
 <input textbox= "getTeacher" id = "getText"/>
 <input onclick="getTeacher(document.getElementById('getText').value)" type="button" value="Button" id="getTeacher"/>
 <br>
-<label>Change Name</label>
-<input textbox= names id = "changeNames"/>
-<input onclick="changeName(document.getElementById('changeNames').value)" type="button" value="Button" id="changeTeacher"/>
-<h>(Format:oldName newName)</h>
-<br>
-<label>Change Link</label>
-<input textbox= input id = "changeLink"/>
-<input onclick="changeLink(document.getElementById('changeNames').value)" type="button" value="Button" id="changeTeacher"/>
-<h>(Format:name link)</h>
-
-<br>
 <br>
 <input onclick="getTeachers()" type="button" value="Button" id="myButton1"/>
 <div id="add_to_me">
@@ -234,7 +184,7 @@
 
 
 <button onclick="switchOffline()">
-    <p>Toggle offline</p>
+<p>Toggle offline</p>
 </button>
 
 
@@ -244,4 +194,4 @@
 </button>
 
 </body>
-</html
+</html>
