@@ -102,7 +102,9 @@ public class MainController {
 
     @PostMapping("/teachers")
     public ArrayList<Teacher> addTeacher(@RequestBody Teacher teacher) {
+
         System.out.println("Added 1 tutor to the list. Total amount now is " + count);
+
         teacher.setId(++count);
         list.add(teacher);
 
@@ -112,6 +114,7 @@ public class MainController {
     @GetMapping("/teacher")
     public Teacher getTeacher(@RequestParam Integer id) {
         System.out.print("Get single tutor called ");
+
         for (Teacher teacher : list) {
             if (teacher.getId() == id) {
                 System.out.println(teacher.getName() + " was found.");

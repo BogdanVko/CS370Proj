@@ -6,6 +6,7 @@ public class Teacher {
     private int id;
     private String link;
     private String name;
+    private Boolean isFree;
 
 
     public Teacher() {
@@ -16,6 +17,7 @@ public class Teacher {
         this.link = link;
         this.name = name;
         this.id = id;
+        this.isFree = true;
     }
 
     public String getLink() {
@@ -28,6 +30,14 @@ public class Teacher {
 
     public String getName() {
         return name;
+    }
+
+    public void setFree(Boolean isFree) {
+        this.isFree = isFree;
+    }
+
+    public Boolean isFree() {
+        return isFree;
     }
 
     public void setName(String name) {
