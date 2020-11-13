@@ -7,7 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
-<body>
+<body onload="getTeachers()">
 
 <script>
     function addTeacher(nametext){
@@ -39,13 +39,9 @@
             {method: 'GET', credentials: 'same-origin'}
         )
 
-            //     [{id: 1, link: "vk.com", name: "Bogdan"}]   This is out array element. BUT the whole array looks like this:
-            //     0: {id: 1, link: "vk.com", name: "Bogdan"}
-            //     so 0 is the first element. First we get 0, then
-            //     from 0 we can get name
-            //function foo(data) {}  - >> (arg) =>
             .then(response => response.json())
             .then((data) => {
+
                     let nameList = "";
                     for (let i = 0; i < data.length; i++) {
                         console.log("getTeacherS(): length of data" + data.length);  //Attention: if you go to dev tools in browser and then to console, you will get whatever
@@ -55,13 +51,17 @@
                         let name = obj.name;
                         let link = obj.link;
                         let free = obj["free"];
-
+                        let status = "busy";
+                        document.getElementById("add_to_me").innerHTML = "";
+                        if (free){
+                            status = "free";
+                        }
                         nameList +=
                             "<div class=\"col tutor\">\n" +
                             "            \n" +
                             "            <h4>" + name + "</h4>"+
 
-                            "<br/><h4> " + link + "</h4> <h3>Now free: "+ free +"</h3>    </div>";
+                            "<br/><h4> <a href='"+link+"'>Join</a></h4> <p>Currently "+ status +"</p>    </div>";
 
 
 
@@ -151,9 +151,9 @@
     }
 
     .tutor {
-
+        padding: 5px;
         min-height: 5em;
-
+        margin: 5px;
         border-radius: 5px;
         border: 1px solid black;
     }

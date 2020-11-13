@@ -125,6 +125,8 @@ public class MainController {
         return null;
     }
 
+
+
     @GetMapping("/teachers")
     public ArrayList<Teacher> getAllTeachers() {
         System.out.println("Get request called. Accessed array " + list.toString());
