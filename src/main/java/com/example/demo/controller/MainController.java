@@ -70,6 +70,15 @@ public class MainController {
         return this.list;
     }
 
+    public void toggleStatus(@RequestBody Teacher teacher) {
+        if (teacher.isFree()){
+            teacher.setFree(false);
+        }
+        else{
+            teacher.setFree(true);
+        }
+    }
+
     @DeleteMapping("/teachers")
     public ArrayList<Teacher> deleteTeacher(@RequestParam Integer id) {
         System.out.print("Delete called ");
