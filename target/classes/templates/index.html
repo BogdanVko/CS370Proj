@@ -10,9 +10,9 @@
 <body onload="getTeachers()">
 
 <script>
-    function addTeacher(nametext){
+    function addTeacher(nametext, linktext){
         var teacher = {
-            link: "gg.com",
+            link: linktext,
             name: nametext
         };
 
@@ -120,6 +120,41 @@
                 })
             );
     }
+    //Working
+    function changeName(names) {
+
+        fetch("/teachers?id=1",
+            {
+                method: 'put',
+                credentials: 'same-origin',
+                body: JSON.stringify(names),
+                mode: "cors",
+                headers: {"Content-type": "application/json;charset=utf-8"}
+            }
+        )
+            .then(function(res){ return res.json(); })
+            .then(function() {
+                alert(JSON.stringify(names))
+            })
+    }
+
+    //Working
+    function changeLink(input, name) {
+
+        fetch("/teachers?id=1",
+            {
+                method: 'put',
+                credentials: 'same-origin',
+                body: JSON.stringify(input),
+                mode: "cors",
+                headers: {"Content-type": "application/json;charset=utf-8"}
+            }
+        )
+            .then(function(res){ return res.json(); })
+            .then(function() {
+                alert(JSON.stringify(input))
+            })
+    }
 
     function switchOnline() {
 
@@ -168,11 +203,15 @@
         </div> -->
 
 </div>
-<label>Add tutor</label>
-
-<input textbox= "addTeacher" id = "myText"/>
-<input onclick="addTeacher(document.getElementById('myText').value)" type="button" value="Button" id="myButton2"/>
-<br>
+    <h2>Add Tutor</h2>
+<form addtutor='newTutor' onsubmit = "addTeacher(document.getElementById('tname').value, document.getElementById('tlink').value)"/>
+    <label for="tname">First name:</label><br>
+    <input type="text" id="tname" name="tname" value="John"><br>
+    <label for="tlink">Link:</label><br>
+    <input type="text" id="tlink" name="tlink" value="zoom.com/"><br><br>
+    <input type="submit" value="Add Tutor">
+</form>
+    <br>
 <label>Delete tutor</label>
 <input textbox= "deleteTeacher" id = "delText"/>
 <input onclick="deleteTeacher(document.getElementById('delText').value)" type="button" value="Button" id="myButton3"/>
@@ -181,18 +220,18 @@
 <input textbox= "getTeacher" id = "getText"/>
 <input onclick="getTeacher(document.getElementById('getText').value)" type="button" value="Button" id="getTeacher"/>
 <br>
+
 <label>Change Name</label>
 <input textbox= names id = "changeNames"/>
-<input onclick="changeName(document.getElementById('changeNames').value)" type="button" value="Button" id="changeName"/>
+<input onclick="changeName(document.getElementById('changeNames').value)" type="button" value="Button" id="names"/>
 <h>(Format:oldName newName)</h>
 <br>
 <label>Change Link</label>
 <input textbox= input id = "changeLink"/>
-<input onclick="changeLink(document.getElementById('changeLink').value)" type="button" value="Button" id="changeLinks"/>
+<input onclick="changeLink(document.getElementById('changeNames').value)" type="button" value="Button" id="input"/>
 <h>(Format:name link)</h>
 <br>
-<br>
-<input onclick="getTeachers()" type="button" value="Button" id="myButton1"/>
+<input onclick="getTeachers()" type="button" value="Refresh" id="myButton1"/>
 <div>
     <h1>Tutor names. Get request</h1>
     <p>This is the text a list of all tutors in the list</p>

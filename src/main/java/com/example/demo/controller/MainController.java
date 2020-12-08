@@ -19,64 +19,55 @@ public class MainController {
         list.add(new Teacher("myspace.org", "Tor", count++));
     }
 
-    @PutMapping("/teachers")
+    @PutMapping({"/teachers"})
     public ArrayList<Teacher> changeName(@RequestBody String names) {
-
         names = names.substring(1, names.length() - 1);
         Scanner sc = new Scanner(names);
         String oldName = null;
         String newName = null;
-
-
-        //First word set to old name
-        if(sc.hasNext())
+        if (sc.hasNext()) {
             oldName = sc.next();
-        if(sc.hasNext())
-            newName = sc.next();
-//    System.out.println(oldName);
-//    System.out.println(newName);
-//    System.out.println(names);
-
-        for (int i = 0; i < list.size(); i++) {
-//        System.out.println("listname: " + list.get(i).getName() + oldName);
-
-            if (list.get(i).getName().equals(oldName)) {
-//            System.out.println("MADE IT");
-                list.get(i).setName(newName);
-            }
-
         }
-        return list;
+
+        if (sc.hasNext()) {
+            newName = sc.next();
+        }
+
+        for(int i = 0; i < this.list.size(); ++i) {
+            if (((Teacher)this.list.get(i)).getName().equals(oldName)) {
+                ((Teacher)this.list.get(i)).setName(newName);
+                System.out.println(oldName + " was changed to: " + newName);
+            }
+            else{
+                System.out.println("Error: " + oldName + " does not exist.");
+            }
+        }
+
+        return this.list;
     }
 
 
     public ArrayList<Teacher> changeLink(@RequestBody String input) {
-
         input = input.substring(1, input.length() - 1);
         Scanner sc = new Scanner(input);
         String name = null;
         String newLink = null;
-
-
-        //First word set to old name
-        if(sc.hasNext())
+        if (sc.hasNext()) {
             name = sc.next();
-        if(sc.hasNext())
-            newLink = sc.next();
-//    System.out.println(oldName);
-//    System.out.println(newName);
-//    System.out.println(names);
-
-        for (int i = 0; i < list.size(); i++) {
-//        System.out.println("listname: " + list.get(i).getName() + oldName);
-
-            if (list.get(i).getName().equals(name)) {
-//            System.out.println("MADE IT");
-                list.get(i).setLink(newLink);
-            }
-
         }
-        return list;
+
+        if (sc.hasNext()) {
+            newLink = sc.next();
+        }
+
+        for(int i = 0; i < this.list.size(); ++i) {
+            if (((Teacher)this.list.get(i)).getName().equals(name)) {
+                ((Teacher)this.list.get(i)).setLink(newLink);
+                System.out.println(name + " link was changed to: " + newLink);
+            }
+        }
+
+        return this.list;
     }
 
     @DeleteMapping("/teachers")
