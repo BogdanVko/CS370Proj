@@ -139,7 +139,7 @@
     }
 
     //Working
-    function changeLink(input, name) {
+    function changeLink(input) {
 
         fetch("/teachers?id=1",
             {
@@ -192,11 +192,11 @@
         border-radius: 5px;
         border: 1px solid black;
     }
+    h1{font-family:Cursive;color:#000000;background-color:#ffffff;}
 </style>
-<h1 style="margin-top: 4em">Tutoring rooms</h1>
+<h1 style="position: relative; left:370px">Tutoring rooms</h1>
 <div class="container">
     <div class="row row-cols-4" id="add_to_me">
-
         <!---<div class="col tutor">
 
             One of three columns
@@ -212,26 +212,20 @@
     <input type="submit" value="Add Tutor">
 </form>
     <br>
-<label>Delete tutor</label>
-<input textbox= "deleteTeacher" id = "delText"/>
-<input onclick="deleteTeacher(document.getElementById('delText').value)" type="button" value="Button" id="myButton3"/>
+<input textbox= "deleteTeacher" id = "delText" value = "Format: id#"/>
+<input onclick="deleteTeacher(document.getElementById('delText').value)" type="button" value="Delete Tutor" id="myButton3"/>
 <br>
-<label>Get tutor</label>
-<input textbox= "getTeacher" id = "getText"/>
-<input onclick="getTeacher(document.getElementById('getText').value)" type="button" value="Button" id="getTeacher"/>
-<br>
+    <br>
 
-<label>Change Name</label>
-<input textbox= names id = "changeNames"/>
-<input onclick="changeName(document.getElementById('changeNames').value)" type="button" value="Button" id="names"/>
-<h>(Format:oldName newName)</h>
+<input textbox= names id = "changeNames" value = "Format: old new"/>
+<input onclick="changeName(document.getElementById('changeNames').value)" type="button" value="Change Name" id="names"/>
 <br>
-<label>Change Link</label>
-<input textbox= input id = "changeLink"/>
-<input onclick="changeLink(document.getElementById('changeNames').value)" type="button" value="Button" id="input"/>
-<h>(Format:name link)</h>
 <br>
-<input onclick="getTeachers()" type="button" value="Refresh" id="myButton1"/>
+<input textbox= input id = "changeLink" value = "Format: Name Link"/>
+<input onclick="changeLink(document.getElementById('changeNames').value)" type="button" value="Change Link" id="input"/>
+<br>
+    <br>
+<input onclick="getTeachers()" type="button" value="Refresh Rooms" id="myButton1"/>
 <div>
     <h1>Tutor names. Get request</h1>
     <p>This is the text a list of all tutors in the list</p>

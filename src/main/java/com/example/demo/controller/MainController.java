@@ -14,9 +14,9 @@ public class MainController {
     private int count = 1;
     private ArrayList<Teacher> list = new ArrayList<>();
     {
-        list.add(new Teacher("vk.com", "Bogdan", count++));
-        list.add(new Teacher("facebook.com", "Alec", count++));
-        list.add(new Teacher("myspace.org", "Tor", count++));
+        list.add(new Teacher("https://www.google.com/", "Bogdan", count++));
+        list.add(new Teacher("https://www.facebook.com/", "Alec", count++));
+        list.add(new Teacher("https://www.amazon.com/", "Tor", count++));
     }
 
     @PutMapping({"/teachers"})
