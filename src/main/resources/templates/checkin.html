@@ -12,7 +12,7 @@
             src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Check-in</title>
 </head>
-<body style="padding-top: 5em">
+
 
 <body onload="getTeachers()">
 
@@ -64,6 +64,7 @@
                         if (free){
                             status = "free";
                         }
+                        console.log("name is " + name);
                         nameList +=
                             "<div class=\"col tutor\">\n" +
                             "            \n" +
@@ -71,7 +72,7 @@
 
                             "<br/><h4> <a href='"+link+"'>Join</a> </h4><p>Currently "+ status +"</p> " +
                             "<b>" +
-                            "<input onclick=\"toggleStatus(name)\" type=\"button\" value=\Status\" id=\"toggleButton\"/>  " +
+                            "<input onclick=toggleStatus(name) type=\"button\" value=\"Status\" id=\"toggleButton\"/>  " +
                             "</div>";
                     }
                     document.getElementById("add_to_me").innerHTML +=
@@ -204,20 +205,23 @@
                 alert(JSON.stringify(teacher))
             })
     }
-    function toggleStatus(status) {
+    function toggleStatus(name) { //Tor
 
-        fetch("/teachers?id=1",
+        name = "Peter Jackson"
+        console.log(name + "is the names");
+        //name
+        fetch(`/toggleTeach?name=${name}`,
             {
                 method: 'put',
                 credentials: 'same-origin',
-                body: JSON.stringify(status),
+                body: JSON.stringify(name),
                 mode: "cors",
                 headers: {"Content-type": "application/json;charset=utf-8"}
             }
         )
             .then(function(res){ return res.json(); })
             .then(function() {
-                alert(JSON.stringify(status))
+                alert(JSON.stringify(name))
             })
     }
 
@@ -297,10 +301,10 @@
             <form addtutor='newTutor'
                   onsubmit="addTeacher(document.getElementById('tname').value, document.getElementById('tlink').value)"/>
             <label for="tname">Tutor Name:</label><br>
-            <input id="tname" name="tname" type="text" value="John Doe "><br>
-            <label for="tlink">Link: (Follow format below)</label><br>
-            <input id="tlink" name="tlink" type="text" value="https://www.zoom.com/"><br><br>
-            <input type="submit" value="Add Tutor">
+            <input id="tname" name="t_name" type="text" value="John Doe "/><br>
+            <label for="tlink">Link: (Follow format below)></label><br>
+            <input id="tlink" name="t_link" type="text" value="https://www.zoom.com/"/><br><br>
+            <input type="submit" value="Add Tutor"/>
             </form>
         </div>
         <div class="column" style="background-color:#FFFFFF;">
@@ -330,4 +334,5 @@
 
 
 </body>
+
 </html>

@@ -70,16 +70,16 @@ public class MainController {
         return this.list;
     }
 
-    public ArrayList<Teacher> toggleStatus(@RequestBody Teacher t) {
 
-        for(int i = 0; i < this.list.size(); ++i) {
-            if (((Teacher)this.list.get(i)).equals(t)) {
-                ((Teacher)this.list.get(i)).setFree(!t.isFree());
-                System.out.println(t.getName() + " status was changed to: " + t.isFree());
-            }
-        }
-        System.out.println("HERE");
-        return this.list;
+    @PutMapping("/toggleTeach")  // the JS function calls /toggleTeach?name=reqBody
+    public ArrayList<Teacher> toggleStatus(@RequestBody String name) {
+        // we get name. Ex: Tor
+        //Find Tor and change his status
+        //return list
+        //We get here yay!
+        System.out.println("Hello from toggle teach function. "+ name);
+        return null;
+
     }
 
     @DeleteMapping("/teachers")
