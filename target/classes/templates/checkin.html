@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" rel="stylesheet">
+    <script crossorigin="anonymous"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Check-in</title>
+</head>
+
+
+<body onload="getTeachers()">
+
+<script>
+    function addTeacher(nametext, linktext){
+        var teacher = {
+            link: linktext,
+            name: nametext
+        };
+
+
+        console.log("addTeacher(): JSON St-y " + JSON.stringify(teacher));
+        fetch("/teachers",
+            {
+                method: 'POST',
+                credentials: 'same-origin',
+                body: JSON.stringify(teacher),
+                mode: "cors",
+                headers: {"Content-type": "application/json;charset=utf-8"}
+            }
+        )
+            .then(function(res){ return res.json(); })
+            .then(function(teacher) {
+                alert(JSON.stringify(teacher))
+            })
+    }
+
+    // Press F12 in chrome, go to network and press the button. This works!
+    function getTeachers() {
+        fetch("/teachers",
+            {method: 'GET', credentials: 'same-origin'}
+        )
+
+            .then(response => response.json())
+            .then((data) => {
+
+                    let nameList = "";
+                    for (let i = 0; i < data.length; i++) {
+                        console.log("getTeacherS(): length of data" + data.length);  //Attention: if you go to dev tools in browser and then to console, you will get whatever
+                        // is in console.log()
+                        const obj = data[i];
+                        console.log("getTeacherS(): obj added " + obj);
+                        let name = obj.name;
+                        let link = obj.link;
+                        let free = obj.isFree;
+                        let status = "busy";
+                        document.getElementById("add_to_me").innerHTML = "";
+
+                        if (free){
+                            status = "free";
+                        }
+                        console.log("name is " + name);
+                        nameList +=
+                            "<div class=\"col tutor\">\n" +
+                            "            \n" +
+                            "            <h4>" + name + "</h4>"+
+
+                            "<br/><h4> <a href='"+link+"'>Join</a> </h4><p>Currently "+ status +"</p> " +
+                            "<b>" +
+                            "<input onclick=\"toggleStatus(data[i].name)\" type=\"button\" value=\"Status\" id=\"toggleButton\"/>  " +
+                            "</div>";
+                    }
+                    document.getElementById("add_to_me").innerHTML +=
+                        nameList;
+
+                }
+            );
+    }
+
+    function getTeacher(inputID) {
+        var test = parseInt(inputID);
+        fetch(`/teacher?id=${test}`,
+            {method: 'GET', credentials: 'same-origin'}
+        )
+
+            //     [{id: 1, link: "vk.com", name: "Bogdan"}]   This is out array element. BUT the whole array looks like this:
+            //     0: {id: 1, link: "vk.com", name: "Bogdan"}
+            //     so 0 is the first element. First we get 0, then
+            //     from 0 we can get name
+            //function foo(data) {}  - >> (arg) =>
+            .then(response => response.json())
+            .then((data) => {
+                    let nameList = "";
+                    console.log("getTeacherS(): length of data" + data.length);  //Attention: if you go to dev tools in browser and then to console, you will get whatever
+                    // is in console.log()
+                    const obj = data;
+                    console.log("getTeacherS(): obj added " + obj);
+                    let name = obj.name;
+                    nameList +=
+                        "<h4>Name: " + name;
+
+                    document.getElementById("add_to_me").innerHTML +=
+                        nameList;
+
+                }
+            );
+    }
+
+    function deleteTeacher(inputID) {
+        var test = parseInt(inputID);
+
+        fetch(`/teachers?id=${test}`,
+            {
+                method: 'delete',
+                credentials: 'same-origin',
+                // body: JSON.stringify(teacher),
+                // mode: "cors",
+                // headers: {"Content-type": "application/json;charset=utf-8"}
+            }
+        )
+            .then(response =>
+                response.json().then(json => {
+                    return json;
+                })
+            );
+    }
+    //Working
+    function changeName(names) {
+
+        fetch("/teachers",
+            {
+                method: 'put',
+                credentials: 'same-origin',
+                body: JSON.stringify(names),
+                mode: "cors",
+                headers: {"Content-type": "application/json;charset=utf-8"}
+            }
+        )
+            .then(function(res){ return res.json(); })
+            .then(function() {
+                alert(JSON.stringify(names))
+            })
+    }
+
+    //Working
+    function changeLink(input) {
+
+        fetch("/teachers",
+            {
+                method: 'put',
+                credentials: 'same-origin',
+                body: JSON.stringify(input),
+                mode: "cors",
+                headers: {"Content-type": "application/json;charset=utf-8"}
+            }
+        )
+            .then(function(res){ return res.json(); })
+            .then(function() {
+                alert(JSON.stringify(input))
+            })
+    }
+
+    function switchOnline() {
+
+        document.getElementById("isOnline").style.backgroundColor = "green";
+
+    }
+
+    function switchOffline() {
+
+        document.getElementById("isOnline").style.backgroundColor = "red";
+
+    }
+
+
+    function addTeacher(nametext, linktext) {
+        var teacher = {
+            name: nametext,
+            link: linktext,
+            isFree: true
+        };
+        console.log("Json printout of what the teacher added is \n");
+
+
+        console.log("addTeacher(): JSON St-y " + JSON.stringify(teacher));
+        fetch("/teachers",
+            {
+
+                method: 'POST',
+                credentials: 'same-origin',
+                body: JSON.stringify(teacher),
+                mode: "cors",
+                headers: {"Content-type": "application/json;charset=utf-8"}
+            }
+        )
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (teacher) {
+                alert(JSON.stringify(teacher))
+            })
+    }
+    function toggleStatus(name) { //Tor
+
+        name = "Peter Jackson"
+        console.log(name + "is the names");
+        //name
+        fetch(`/toggleTeach?name=${name}`,
+            {
+                method: 'put',
+                credentials: 'same-origin',
+                body: JSON.stringify(name),
+                mode: "cors",
+                headers: {"Content-type": "application/json;charset=utf-8"}
+            }
+        )
+            .then(function(res){ return res.json(); })
+            .then(function() {
+                alert(JSON.stringify(name))
+            })
+    }
+
+</script>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Hello, tutor! TEST</h1>
+        <p class="lead">This is the place for you to add or remove yourself from the list of tutors. </p>
+        <hr class="my-4">
+    </div>
+</div>
+
+<style>
+.isFree{
+    border-radius: 100%;
+    border: 1px solid black;
+    background-color: red;
+    height: 50px;
+    width: 50px;
+}
+#isOnline {
+    border-radius: 100%;
+    border: 1px solid black;
+    background-color: red;
+    height: 50px;
+    width: 50px;
+}
+
+.tutor {
+    padding: 5px;
+    min-height: 5em;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+</style>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Create three unequal columns that floats next to each other */
+    .column {
+        float: left;
+        padding: 50px;
+    }
+
+    .left, .right {
+        width: 25%;
+    }
+
+    .middle {
+        width: 50%;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+<h1 style="position: relative; left:370px">Tutoring rooms</h1>
+<div class="container">
+    <div class="row row-cols-4" id="add_to_me">
+        <!---<div class="col tutor">
+
+            One of three columns
+        </div> -->
+
+    </div>
+    <br>
+    <div class="row">
+        <div class="column" style="background-color:#FFFFFF;">
+            <h2>Add Tutor</h2>
+            <form addtutor='newTutor'
+                  onsubmit="addTeacher(document.getElementById('tname').value, document.getElementById('tlink').value)"/>
+            <label for="tname">Tutor Name:</label><br>
+            <input id="tname" name="t_name" type="text" value="John Doe "/><br>
+            <label for="tlink">Link: (Follow format below)></label><br>
+            <input id="tlink" name="t_link" type="text" value="https://www.zoom.com/"/><br><br>
+            <input type="submit" value="Add Tutor"/>
+            </form>
+        </div>
+        <div class="column" style="background-color:#FFFFFF;">
+            <h2>Edit Tutors</h2>
+            <input textbox= "deleteTeacher" id = "delText" value = "Format: id#"/>
+            <input onclick="deleteTeacher(document.getElementById('delText').value)" type="button" value="Delete Tutor" id="myButton3"/>
+            <br>
+            <br>
+
+            <input textbox= names id = "changeNames" value = "Format: old new"/>
+            <input onclick="changeName(document.getElementById('changeNames').value)" type="button" value="Change Name" id="names"/>
+            <br>
+            <br>
+            <input textbox= input id = "changeLink" value = "Format: Name Link"/>
+            <input onclick="changeLink(document.getElementById('changeLinks').value)" type="button" value="Change Link" id="input"/>
+            <br>
+            <br>
+            <input onclick="getTeachers()" type="button" value="Refresh Rooms" id="myButton1"/>
+        </div>
+    </div>
+
+    <br>
+
+
+
+</div>
+
+
+</body>
+
+</html>
