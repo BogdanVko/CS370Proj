@@ -189,10 +189,13 @@
         border-radius: 5px;
         border: 1px solid black;
     }
-    h1{font-family:Cursive;color:#000000;background-color:#ffffff;}
+
 </style>
-<h1 style="position: relative; left:370px">Tutoring rooms</h1>
+
+
+
 <div class="container">
+    <div class="row"><h1>Tutoring Rooms</h1></div>
     <div class="row row-cols-4" id="add_to_me">
         <!---<div class="col tutor">
 
@@ -200,44 +203,6 @@
         </div> -->
 
 </div>
-
-    <br>
-<input textbox= "deleteTeacher" id = "delText" value = "Format: id#"/>
-<input onclick="deleteTeacher(document.getElementById('delText').value)" type="button" value="Delete Tutor" id="myButton3"/>
-<br>
-    <br>
-
-<input textbox= names id = "changeNames" value = "Format: old new"/>
-<input onclick="changeName(document.getElementById('changeNames').value)" type="button" value="Change Name" id="names"/>
-<br>
-<br>
-<input textbox= input id = "changeLink" value = "Format: Name Link"/>
-<input onclick="changeLink(document.getElementById('changeNames').value)" type="button" value="Change Link" id="input"/>
-<br>
-    <br>
-<input onclick="getTeachers()" type="button" value="Refresh Rooms" id="myButton1"/>
-<div>
-    <h1>Tutor names. Get request</h1>
-    <p>This is the text a list of all tutors in the list</p>
-</div>
-
-<div id="isOnline">
-
-</div>
-<button onclick="switchOnline()">
-    <p>Toggle online</p>
-</button>
-
-
-<button onclick="switchOffline()">
-<p>Toggle offline</p>
-</button>
-
-
-
-<button onclick="addTeacher()">
-    <p>Add tutor</p>
-</button>
 
 </body>
 </html>
