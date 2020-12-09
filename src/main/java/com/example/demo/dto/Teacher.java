@@ -40,7 +40,10 @@ public class Teacher {
         return isFree;
     }
 
+    public void setFree(boolean b){
 
+        isFree = b;
+    }
     public void setName(String name) {
         this.name = name;
     }

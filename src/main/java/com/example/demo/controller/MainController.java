@@ -19,7 +19,7 @@ public class MainController {
         list.add(new Teacher("https://www.amazon.com/", "Tor", count++));
     }
 
-    @PutMapping({"/teachers"})
+    @PutMapping("/teachers")
     public ArrayList<Teacher> changeName(@RequestBody String names) {
         names = names.substring(1, names.length() - 1);
         Scanner sc = new Scanner(names);
@@ -46,7 +46,7 @@ public class MainController {
         return this.list;
     }
 
-
+    @PutMapping("/teacherlink")
     public ArrayList<Teacher> changeLink(@RequestBody String input) {
         input = input.substring(1, input.length() - 1);
         Scanner sc = new Scanner(input);
@@ -71,14 +71,19 @@ public class MainController {
     }
 
 
-    @PutMapping("/toggleTeach")  // the JS function calls /toggleTeach?name=reqBody
+    @PutMapping("/toggleteach")  // the JS function calls /toggleTeach?name=reqBody
     public ArrayList<Teacher> toggleStatus(@RequestBody String name) {
         // we get name. Ex: Tor
         //Find Tor and change his status
         //return list
         //We get here yay!
-        System.out.println("Hello from toggle teach function. "+ name);
-        return null;
+        System.out.println("Hello from toggle teach function. " + name);
+        for(Teacher t: list){
+            if(t.getName().equals(name)){
+                t.setFree(!t.isFree());
+            }
+        }
+        return list;
 
     }
 
