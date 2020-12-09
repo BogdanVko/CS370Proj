@@ -70,13 +70,16 @@ public class MainController {
         return this.list;
     }
 
-    public void toggleStatus(@RequestBody Teacher teacher) {
-        if (teacher.isFree()){
-            teacher.setFree(false);
+    public ArrayList<Teacher> toggleStatus(@RequestBody Teacher t) {
+
+        for(int i = 0; i < this.list.size(); ++i) {
+            if (((Teacher)this.list.get(i)).equals(t)) {
+                ((Teacher)this.list.get(i)).setFree(!t.isFree());
+                System.out.println(t.getName() + " status was changed to: " + t.isFree());
+            }
         }
-        else{
-            teacher.setFree(true);
-        }
+        System.out.println("HERE");
+        return this.list;
     }
 
     @DeleteMapping("/teachers")

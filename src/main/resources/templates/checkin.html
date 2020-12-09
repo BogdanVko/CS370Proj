@@ -57,9 +57,10 @@
                         console.log("getTeacherS(): obj added " + obj);
                         let name = obj.name;
                         let link = obj.link;
-                        let free = obj["free"];
+                        let free = obj.isFree;
                         let status = "busy";
                         document.getElementById("add_to_me").innerHTML = "";
+
                         if (free){
                             status = "free";
                         }
@@ -68,9 +69,9 @@
                             "            \n" +
                             "            <h4>" + name + "</h4>"+
 
-                            "<br/><h4> <a href='"+link+"'>Join</a></h4> <p>Currently "+ status +"</p> " +
+                            "<br/><h4> <a href='"+link+"'>Join</a> </h4><p>Currently "+ status +"</p> " +
                             "<b>" +
-                            "<input onclick=\"toggleStatus(data[i])\" type=\"button\" value=\Status\" id=\"toggleButton\"/>  " +
+                            "<input onclick=\"toggleStatus(name)\" type=\"button\" value=\Status\" id=\"toggleButton\"/>  " +
                             "</div>";
                     }
                     document.getElementById("add_to_me").innerHTML +=
@@ -130,7 +131,7 @@
     //Working
     function changeName(names) {
 
-        fetch("/teachers?id=1",
+        fetch("/teachers",
             {
                 method: 'put',
                 credentials: 'same-origin',
@@ -148,7 +149,7 @@
     //Working
     function changeLink(input) {
 
-        fetch("/teachers?id=1",
+        fetch("/teachers",
             {
                 method: 'put',
                 credentials: 'same-origin',
@@ -314,7 +315,7 @@
             <br>
             <br>
             <input textbox= input id = "changeLink" value = "Format: Name Link"/>
-            <input onclick="changeLink(document.getElementById('changeNames').value)" type="button" value="Change Link" id="input"/>
+            <input onclick="changeLink(document.getElementById('changeLinks').value)" type="button" value="Change Link" id="input"/>
             <br>
             <br>
             <input onclick="getTeachers()" type="button" value="Refresh Rooms" id="myButton1"/>
