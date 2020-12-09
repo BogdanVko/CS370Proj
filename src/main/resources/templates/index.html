@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <meta http-equiv="refresh" content="30">
+    <title>PACE center</title>
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" rel="stylesheet">
     <script crossorigin="anonymous"
@@ -15,31 +16,6 @@
 <body onload="getTeachers()">
 
 <script>
-    function addTeacher(nametext, linktext) {
-        var teacher = {
-            link: linktext,
-            name: nametext
-        };
-
-
-        console.log("addTeacher(): JSON St-y " + JSON.stringify(teacher));
-        fetch("/teachers",
-            {
-                method: 'POST',
-                credentials: 'same-origin',
-                body: JSON.stringify(teacher),
-                mode: "cors",
-                headers: {"Content-type": "application/json;charset=utf-8"}
-            }
-        )
-            .then(function (res) {
-                return res.json();
-            })
-            .then(function (teacher) {
-                alert(JSON.stringify(teacher))
-            })
-    }
-
     // Press F12 in chrome, go to network and press the button. This works!
     function getTeachers() {
         fetch("/teachers",
@@ -77,105 +53,8 @@
             );
     }
 
-    function getTeacher(inputID) {
-        var test = parseInt(inputID);
-        fetch(`/teacher?id=${test}`,
-            {method: 'GET', credentials: 'same-origin'}
-        )
 
-            //     [{id: 1, link: "vk.com", name: "Bogdan"}]   This is out array element. BUT the whole array looks like this:
-            //     0: {id: 1, link: "vk.com", name: "Bogdan"}
-            //     so 0 is the first element. First we get 0, then
-            //     from 0 we can get name
-            //function foo(data) {}  - >> (arg) =>
-            .then(response => response.json())
-            .then((data) => {
-                    let nameList = "";
-                    console.log("getTeacherS(): length of data" + data.length);  //Attention: if you go to dev tools in browser and then to console, you will get whatever
-                    // is in console.log()
-                    const obj = data;
-                    console.log("getTeacherS(): obj added " + obj);
-                    let name = obj.name;
-                    nameList +=
-                        "<h4>Name: " + name;
 
-                    document.getElementById("add_to_me").innerHTML +=
-                        nameList;
-
-                }
-            );
-    }
-
-    function deleteTeacher(inputID) {
-        var test = parseInt(inputID);
-
-        fetch(`/teachers?id=${test}`,
-            {
-                method: 'delete',
-                credentials: 'same-origin',
-                // body: JSON.stringify(teacher),
-                // mode: "cors",
-                // headers: {"Content-type": "application/json;charset=utf-8"}
-            }
-        )
-            .then(response =>
-                response.json().then(json => {
-                    return json;
-                })
-            );
-    }
-
-    //Working
-    function changeName(names) {
-
-        fetch("/teachers?id=1",
-            {
-                method: 'put',
-                credentials: 'same-origin',
-                body: JSON.stringify(names),
-                mode: "cors",
-                headers: {"Content-type": "application/json;charset=utf-8"}
-            }
-        )
-            .then(function (res) {
-                return res.json();
-            })
-            .then(function () {
-                alert(JSON.stringify(names))
-            })
-    }
-
-    //Working
-    function changeLink(input) {
-
-        fetch("/teachers?id=1",
-            {
-                method: 'put',
-                credentials: 'same-origin',
-                body: JSON.stringify(input),
-                mode: "cors",
-                headers: {"Content-type": "application/json;charset=utf-8"}
-            }
-        )
-            .then(function (res) {
-                return res.json();
-            })
-            .then(function () {
-                alert(JSON.stringify(input))
-            })
-    }
-
-    function switchOnline() {
-
-        document.getElementById("isOnline").style.backgroundColor = "green";
-
-    }
-
-    function switchOffline() {
-
-        document.getElementById("isOnline").style.backgroundColor = "red";
-
-    }
 
 </script>
 <style>
@@ -203,10 +82,24 @@
         border: 1px solid black;
     }
 
+    .jumbotron{
+        background-image: url("https://wallpapercave.com/wp/wp3056286.png");
+        background-size: cover;
+    }
 </style>
 
 
+
 <div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4" style="color: white">Welcome dear student!</h1>
+        <p class="lead" style="color: white">This is the virtual tutoring center. Tutoring rooms will appear below.</p>
+        <hr class="my-4">
+        <p style="color: white">Working hours: Mon-Fri 9am - 4pm; 6pm - 9pm;</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" id="ref_button"  onclick="getTeachers()" role="button">Refresh</a>
+        </p>
+    </div>
 
     <div class="row"><h1>Tutoring Rooms</h1></div>
     <div class="row row-cols-4" id="add_to_me">
@@ -216,6 +109,37 @@
         </div> -->
 
     </div>
+</div>
+
+<br/>
+<br/>
+<br/>
+<!-- Footer -->
+<footer class="page-footer font-small indigo">
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+
+        <!-- Grid row -->
+        <div class="row">
+            <p>Developed by Bogdan Vasilchenko, Tor Larso, Alec Watkins</p>
+
+        </div>
+        <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="#">All rights reserved</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+
 
 </body>
 </html>

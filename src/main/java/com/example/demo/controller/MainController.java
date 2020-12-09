@@ -11,7 +11,7 @@ import java.util.Scanner;  //For splitting input
 public class MainController {
 
 
-    private int count = 1;
+    private int count = 0;
     private ArrayList<Teacher> list = new ArrayList<>();
 
 
@@ -94,6 +94,7 @@ public class MainController {
                 isFound = true;
                 System.out.println(list.get(i).getName() + " was removed.");
                 list.remove(i);
+                count--;
 
             }
         }

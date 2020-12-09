@@ -37,8 +37,9 @@
         )
             .then(function(res){ return res.json(); })
             .then(function(teacher) {
-                alert(JSON.stringify(teacher))
+                console.log(JSON.stringify(teacher))
             })
+
     }
     function toggleStatus(name){
 
@@ -58,7 +59,7 @@
                 console.log(JSON.stringify(name))
             })
 
-
+    window.location.reload();
     }
     // Press F12 in chrome, go to network and press the button. This works!
     function getTeachers() {
@@ -94,8 +95,8 @@
                             "            \n" +
                             "            <h4> <div id='theName"+i+"'>" + name +"</div> id: " + id +"</h4>"+
 
-                            "<br/><h4> <a href='"+link+"'>Join</a> </h4><p>Currently "+ status +"</p> " +
-                            "<b>" +
+                            "<br/><h4> <a href='"+link+"'>Join</a> </h4><p classs='free'>Currently "+ status +"</p> " +
+                            "<br/>" +
                             "<input onclick=toggleStatus(document.getElementById('theName"+i+"').innerHTML) type=\"button\" value=\"Status\" id=\"toggleButton\"/>  " +
                             "</div>";
                     }
@@ -153,6 +154,8 @@
                     return json;
                 })
             );
+
+        window.location.reload();
     }
     //Working
     function changeName(names) {
@@ -168,8 +171,10 @@
         )
             .then(function(res){ return res.json(); })
             .then(function() {
-                alert(JSON.stringify(names))
+                console.log(JSON.stringify(names))
             })
+
+        window.location.reload();
     }
 
     //Working
@@ -186,11 +191,10 @@
         )
             .then(function(res){ return res.json(); })
             .then(function() {
-                alert(JSON.stringify(input))
+                console.log(JSON.stringify(input))
             })
+        window.location.reload();
     }
-
-
 
 
 
@@ -198,39 +202,37 @@
 
 </script>
 
-<div class="container">
-    <div class="jumbotron">
-        <h1 class="display-4">Hello, tutor! TEST</h1>
-        <p class="lead">This is the place for you to add or remove yourself from the list of tutors. </p>
-        <hr class="my-4">
-    </div>
-</div>
-
 <style>
-.isFree{
-    border-radius: 100%;
-    border: 1px solid black;
-    background-color: red;
-    height: 50px;
-    width: 50px;
-}
-#isOnline {
-    border-radius: 100%;
-    border: 1px solid black;
-    background-color: red;
-    height: 50px;
-    width: 50px;
-}
 
-.tutor {
-    padding: 5px;
-    min-height: 5em;
-    margin: 5px;
-    border-radius: 5px;
-    border: 1px solid black;
-}
-</style>
-<style>
+
+    .free{
+        font-family: "DejaVu Sans",serif;
+
+
+    }
+    .isFree{
+        border-radius: 100%;
+        border: 1px solid black;
+        background-color: red;
+        height: 50px;
+        width: 50px;
+    }
+    #isOnline {
+        border-radius: 100%;
+        border: 1px solid black;
+        background-color: red;
+        height: 50px;
+        width: 50px;
+    }
+
+    .tutor {
+        padding: 5px;
+        min-height: 5em;
+        margin: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+    }
+
     * {
         box-sizing: border-box;
     }
@@ -256,6 +258,15 @@
         clear: both;
     }
 </style>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Hello, tutor/admin!</h1>
+        <p class="lead">This is the place for you to add or remove yourself from the list of tutors or change things. </p>
+        <hr class="my-4">
+    </div>
+</div>
+
 <h1 style="position: relative; left:370px">Tutoring rooms</h1>
 <div class="container">
     <div class="row row-cols-4" id="add_to_me">
@@ -271,8 +282,8 @@
             <h2>Add Tutor</h2>
             <form addtutor='newTutor'
                   onsubmit="addTeacher(document.getElementById('tname').value, document.getElementById('tlink').value)"/>
-            <label for="tname">Tutor Name:</label><br>
-            <input id="tname" name="t_name" type="text" value="John Doe "/><br>
+            <label for="tname">Tutor First Name ONLY (no spaces):</label><br>
+            <input id="tname" name="t_name" type="text" value="John"/><br>
             <label for="tlink">Link: (Follow format below)></label><br>
             <input id="tlink" name="t_link" type="text" value="https://www.zoom.com/"/><br><br>
             <input type="submit" value="Add Tutor"/>
